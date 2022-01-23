@@ -4,59 +4,63 @@
 #include <Arduino.h>
 
 class Logger {
-public:
-  enum debug_level_t
-  {
-    DEBUG_LEVEL_NONE,    // No debug output
-    DEBUG_LEVEL_ERROR,   // Critical errors
-    DEBUG_LEVEL_WARN,    // Error conditions but not critical
-    DEBUG_LEVEL_INFO,    // Information messages
-    DEBUG_LEVEL_DEBUG,   // Extra information - default level (if not changed)
-    DEBUG_LEVEL_VERBOSE, // More information than the usual
-    DEBUG_LEVELS_SIZE
-  };
+    public:
+        typedef enum
+        {
+            DEBUG_LEVEL_NONE,    // No debug output
+            DEBUG_LEVEL_ERROR,   // Critical errors
+            DEBUG_LEVEL_WARN,    // Error conditions but not critical
+            DEBUG_LEVEL_INFO,    // Information messages
+            DEBUG_LEVEL_DEBUG,   // Extra information - default level (if not changed)
+            DEBUG_LEVEL_VERBOSE, // More information than the usual
+            DEBUG_LEVELS_SIZE
+        } debug_level_t;
 
-  static Logger &instance() {
-    static Logger _instance;
-    return _instance;
-  }
+        static Logger &instance()
+        {
+            static Logger _instance;
+            return _instance;
+        }
 
-  ~Logger() {
-  }
+        ~Logger()
+        {
+        }
 
-  void setSerial(Stream *serial);
-  void setDebugLevel(debug_level_t level);
+        void setSerial(Stream *serial);
+        void setDebugLevel(debug_level_t level);
+        void enableColor(bool enable);
 
-  // print always:
-  void printA(const String &text, const char *file, uint32_t line);   // always
-  void printE(const String &text, const char *file, uint32_t line);   // error
-  void printlnA(const String &text, const char *file, uint32_t line); // always with new line
-  void printlnE(const String &text, const char *file, uint32_t line); // error with new line
+        // print always:
+        void printA(const String &text, const char *file, uint32_t line);   // always
+        void printE(const String &text, const char *file, uint32_t line);   // error
+        void printlnA(const String &text, const char *file, uint32_t line); // always with new line
+        void printlnE(const String &text, const char *file, uint32_t line); // error with new line
 
-  // depending on verbose level:
-  void printV(const String &text, const char *file, uint32_t line); // verbose
-  void printD(const String &text, const char *file, uint32_t line); // debug
-  void printI(const String &text, const char *file, uint32_t line); // information
-  void printW(const String &text, const char *file, uint32_t line); // warning
+        // depending on verbose level:
+        void printV(const String &text, const char *file, uint32_t line); // verbose
+        void printD(const String &text, const char *file, uint32_t line); // debug
+        void printI(const String &text, const char *file, uint32_t line); // information
+        void printW(const String &text, const char *file, uint32_t line); // warning
 
-  void printlnV(const String &text, const char *file, uint32_t line); // verbose with new line
-  void printlnD(const String &text, const char *file, uint32_t line); // debug with new line
-  void printlnI(const String &text, const char *file, uint32_t line); // information with new line
-  void printlnW(const String &text, const char *file, uint32_t line); // warning with new line
+        void printlnV(const String &text, const char *file, uint32_t line); // verbose with new line
+        void printlnD(const String &text, const char *file, uint32_t line); // debug with new line
+        void printlnI(const String &text, const char *file, uint32_t line); // information with new line
+        void printlnW(const String &text, const char *file, uint32_t line); // warning with new line
 
-private:
-  Stream *      _serial;
-  debug_level_t _level;
-  bool          _printIsNewline;
+    private:
+        Stream *      m_serial;
+        debug_level_t m_level;
+        bool          m_printIsNewline;
+        bool          m_noColor;
 
-  void printStartColor(debug_level_t level);
-  void printHeader(debug_level_t level, const char *file, uint32_t line, bool isln);
-  void printEndColor(debug_level_t level);
-  char levelToChar(debug_level_t level);
+        void printStartColor(debug_level_t level);
+        void printHeader(debug_level_t level, const char *file, uint32_t line, bool isln);
+        void printEndColor(debug_level_t level);
+        char levelToChar(debug_level_t level);
 
-  Logger();
-  Logger(const Logger &);
-  Logger &operator=(const Logger &);
+        Logger();
+        Logger(const Logger &);
+        Logger &operator=(const Logger &);
 };
 
 #define __FILENAME__      (strrchr("/" __FILE__, '/') + 1)
