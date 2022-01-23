@@ -81,18 +81,18 @@ class Logger {
 
 #else // USE_ESP_LOGGER
 
-#define DlogPrintA(text) do {} while(0)
-#define DlogPrintE(text) do {} while(0)
-#define DlogPrintV(text) do {} while(0)
-#define DlogPrintD(text) do {} while(0)
-#define DlogPrintI(text) do {} while(0)
-#define DlogPrintW(text) do {} while(0)
-#define DlogPrintlnA(text) do {} while(0)
-#define DlogPrintlnE(text) do {} while(0)
-#define DlogPrintlnV(text) do {} while(0)
-#define DlogPrintlnD(text) do {} while(0)
-#define DlogPrintlnI(text) do {} while(0)
-#define DlogPrintlnW(text) do {} while(0)
+#define logPrintA(text) do {} while(0)
+#define logPrintE(text) do {} while(0)
+#define logPrintV(text) do {} while(0)
+#define logPrintD(text) do {} while(0)
+#define logPrintI(text) do {} while(0)
+#define logPrintW(text) do {} while(0)
+#define logPrintlnA(text) do {} while(0)
+#define logPrintlnE(text) do {} while(0)
+#define logPrintlnV(text) do {} while(0)
+#define logPrintlnD(text) do {} while(0)
+#define logPrintlnI(text) do {} while(0)
+#define logPrintlnW(text) do {} while(0)
 
 #endif // USE_ESP_LOGGER
 
