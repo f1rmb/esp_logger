@@ -1,16 +1,16 @@
 #include "logger.h"
 
 namespace logging {
-Logger::Logger() : _serial(&Serial), _level(LoggerLevel::LOGGER_LEVEL_DEBUG), _isSyslogSet(false) {
+Logger::Logger() : _serial(&Serial), _level(LoggerLevel::LOGGER_LEVEL_DEBUG), _colored(true), _isSyslogSet(false) {
 }
 
-Logger::Logger(LoggerLevel level) : _serial(&Serial), _level(level), _isSyslogSet(false) {
+Logger::Logger(LoggerLevel level) : _serial(&Serial), _level(level), _colored(true), _isSyslogSet(false) {
 }
 
-Logger::Logger(Stream *serial) : _serial(serial), _level(LoggerLevel::LOGGER_LEVEL_DEBUG), _isSyslogSet(false) {
+Logger::Logger(Stream *serial) : _serial(serial), _level(LoggerLevel::LOGGER_LEVEL_DEBUG), _colored(true), _isSyslogSet(false) {
 }
 
-Logger::Logger(Stream *serial, LoggerLevel level) : _serial(serial), _level(level), _isSyslogSet(false) {
+Logger::Logger(Stream *serial, LoggerLevel level) : _serial(serial), _level(level), _colored(true), _isSyslogSet(false) {
 }
 
 Logger::~Logger() {
@@ -24,6 +24,11 @@ void Logger::setSerial(Stream *serial) {
 // cppcheck-suppress unusedFunction
 void Logger::setDebugLevel(LoggerLevel level) {
   _level = level;
+}
+
+void Logger::enableColor(bool enable)
+{
+  _colored = enable;
 }
 
 // cppcheck-suppress unusedFunction
@@ -65,10 +70,14 @@ void Logger::vlogf(LoggerLevel level, const String &module, const char *fmt, va_
 // cppcheck-suppress unusedFunction
 void Logger::println(LoggerLevel level, const String &module, const String &text) {
   if (level <= _level) {
-    _serial->print(level.getLineColor());
+    if (_colored)
+      _serial->print(level.getLineColor());
     printHeader(level, module);
     _serial->print(text);
-    _serial->println(level.resetColor());
+    if (_colored)
+      _serial->println(level.resetColor());
+    else
+      _serial->println("");
   }
   if (_isSyslogSet) {
     syslogLog(level, module, text);

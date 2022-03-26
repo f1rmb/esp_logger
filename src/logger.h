@@ -18,6 +18,7 @@ public:
 
   void setSerial(Stream *serial);
   void setDebugLevel(LoggerLevel level);
+  void enableColor(bool enable);
 
   // syslog config
   void setSyslogServer(const String &server, unsigned int port, const String &hostname);
@@ -28,6 +29,7 @@ public:
 private:
   Stream *    _serial;
   LoggerLevel _level;
+  bool        _colored;
 
   void vlogf(LoggerLevel level, const String &module, const char *fmt, va_list args);
   void println(LoggerLevel level, const String &module, const String &text);
