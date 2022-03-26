@@ -115,8 +115,7 @@ void Logger::printD(const String &text, const char *file, uint32_t line)
 // cppcheck-suppress unusedFunction
 void Logger::printI(const String &text, const char *file, uint32_t line)
 {
-    if (m_level >= DEBUG_LEVEL_INFO)
-    {
+    if (m_level >= DEBUG_LEVEL_INFO) {
         printStartColor(DEBUG_LEVEL_INFO);
         printHeader(DEBUG_LEVEL_INFO, file, line, false);
         m_serial->print(text);
@@ -127,8 +126,7 @@ void Logger::printI(const String &text, const char *file, uint32_t line)
 // cppcheck-suppress unusedFunction
 void Logger::printW(const String &text, const char *file, uint32_t line)
 {
-    if (m_level >= DEBUG_LEVEL_WARN)
-    {
+    if (m_level >= DEBUG_LEVEL_WARN) {
         printStartColor(DEBUG_LEVEL_WARN);
         printHeader(DEBUG_LEVEL_WARN, file, line, false);
         m_serial->print(text);
@@ -151,8 +149,7 @@ void Logger::printlnV(const String &text, const char *file, uint32_t line)
 // cppcheck-suppress unusedFunction
 void Logger::printlnD(const String &text, const char *file, uint32_t line)
 {
-    if (m_level >= DEBUG_LEVEL_DEBUG)
-    {
+    if (m_level >= DEBUG_LEVEL_DEBUG) {
         printStartColor(DEBUG_LEVEL_DEBUG);
         printHeader(DEBUG_LEVEL_DEBUG, file, line, true);
         m_serial->println(text);
@@ -229,8 +226,7 @@ void Logger::printHeader(debug_level_t level, const char *file, uint32_t line, b
     }
 }
 
-void Logger::printEndColor(debug_level_t level)
-{
+void Logger::printEndColor(debug_level_t level) {
     if (m_noColor)
     {
         return;
