@@ -3,8 +3,6 @@
 
 #include <Arduino.h>
 
-#if defined(USE_ESP_LOGGER)
-
 class Logger {
     public:
         typedef enum
@@ -79,21 +77,4 @@ class Logger {
 #define logPrintlnI(text) Logger::instance().printlnI(text, __FILENAME__, __LINE__)
 #define logPrintlnW(text) Logger::instance().printlnW(text, __FILENAME__, __LINE__)
 
-#else // USE_ESP_LOGGER
-
-#define DlogPrintA(text) do {} while(0)
-#define DlogPrintE(text) do {} while(0)
-#define DlogPrintV(text) do {} while(0)
-#define DlogPrintD(text) do {} while(0)
-#define DlogPrintI(text) do {} while(0)
-#define DlogPrintW(text) do {} while(0)
-#define DlogPrintlnA(text) do {} while(0)
-#define DlogPrintlnE(text) do {} while(0)
-#define DlogPrintlnV(text) do {} while(0)
-#define DlogPrintlnD(text) do {} while(0)
-#define DlogPrintlnI(text) do {} while(0)
-#define DlogPrintlnW(text) do {} while(0)
-
-#endif // USE_ESP_LOGGER
-
-#endif // _LOGGER_H_
+#endif

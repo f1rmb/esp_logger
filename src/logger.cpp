@@ -1,7 +1,5 @@
 #include "logger.h"
 
-#if defined(USE_ESP_LOGGER)
-
 #undef LOG_RESET_COLOR
 #undef LOG_COLOR_E
 #undef LOG_COLOR_W
@@ -270,5 +268,3 @@ char Logger::levelToChar(debug_level_t level)
             return ' ';
     }
 }
-
-#endif // USE_ESP_LOGGER
